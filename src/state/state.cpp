@@ -13,7 +13,30 @@
  */
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  return 0;
+  int white_score=0;
+  for(int i=0;i<BOARD_H;i++){
+    for(int j=0;j<BOARD_W;j++){
+      int a=board.board[0][i][j];
+      if(a==1) white_score+=1;
+      if(a==2) white_score+=5;
+      if(a==3) white_score+=3;
+      if(a==4) white_score+=3;
+      if(a==5) white_score+=9;
+      if(a==6) white_score+=100;
+    }
+  }
+  for(int i=0;i<BOARD_H;i++){
+    for(int j=0;j<BOARD_W;j++){
+      int a=board.board[1][i][j];
+      if(a==1) white_score-=1;
+      if(a==2) white_score-=5;
+      if(a==3) white_score-=3;
+      if(a==4) white_score-=3;
+      if(a==5) white_score-=9;
+      if(a==6) white_score-=100;
+    }
+  }
+  return white_score;
 }
 
 
