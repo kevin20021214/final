@@ -11,29 +11,52 @@
  * 
  * @return int 
  */
+char weight[3][BOARD_H][BOARD_W]={
+    
+      {
+        {0,0,0,0,0},
+      {0,0,0,0,0},
+      {0,0,0,0,0},
+      {0,0,0,0,0},
+      {10,10,10,10,10},
+      {0,0,0,0,0}
+      },
+      {
+      {0,0,0,0,0},
+      {10,10,10,10,10},
+      {0,0,0,0,0},
+      {0,0,0,0,0},
+      {0,0,0,0,0},
+      {0,0,0,0,0}
+      },
+      {
+      {0,0,0,0,0},
+      {0,4,4,4,0},
+      {0,4,9,4,0},
+      {0,4,9,4,0},
+      {0,4,4,4,0},
+      {0,0,0,0,0}
+      }
+};
 int State::evaluate(){
   // [TODO] design your own evaluation function
   int white_score=0;
   for(int i=0;i<BOARD_H;i++){
     for(int j=0;j<BOARD_W;j++){
       int a=board.board[0][i][j];
+      int b=board.board[1][i][j];
       if(a==1) white_score+=1;
-      if(a==2) white_score+=5;
-      if(a==3) white_score+=3;
-      if(a==4) white_score+=3;
-      if(a==5) white_score+=9;
-      if(a==6) white_score+=100;
-    }
-  }
-  for(int i=0;i<BOARD_H;i++){
-    for(int j=0;j<BOARD_W;j++){
-      int a=board.board[1][i][j];
-      if(a==1) white_score-=1;
-      if(a==2) white_score-=5;
-      if(a==3) white_score-=3;
-      if(a==4) white_score-=3;
-      if(a==5) white_score-=9;
-      if(a==6) white_score-=100;
+      if(a==2) white_score+=(5+weight[0][i][j]);
+      if(a==3) white_score+=(3+weight[2][i][j]);
+      if(a==4) white_score+=(3+weight[2][i][j]);
+      if(a==5) white_score+=(9+weight[0][i][j]);
+      if(a==6) white_score+=1000;
+      if(b==1) white_score-=1;
+      if(b==2) white_score-=(5+weight[1][i][j]);
+      if(b==3) white_score-=(3+weight[2][i][j]);
+      if(b==4) white_score-=(3+weight[2][i][j]);
+      if(b==5) white_score-=(9+weight[1][i][j]);
+      if(b==6) white_score-=1000;
     }
   }
   return white_score;
